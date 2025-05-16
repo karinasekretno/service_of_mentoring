@@ -1,22 +1,30 @@
+// screens/Login.js
+
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login({ navigation }) {
-  const [login, setLogin] = useState('');
+  const [login, setLogin]       = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = async () => {
     if (!login || !password) {
-      Alert.alert('Ошибка', 'Пожалуйста, введите логин и пароль.');
-      return;
+      return Alert.alert('Ошибка', 'Введите логин и пароль.');
     }
     try {
-      const jsonValue = await AsyncStorage.getItem('mentorProfile');
-      const profile = jsonValue != null ? JSON.parse(jsonValue) : null;
-      if (profile && profile.login === login && profile.password === password) {
-        Alert.alert('Успех', 'Вход выполнен!');
-        navigation.navigate('MentorProfile');
+      const jsonCreds = await AsyncStorage.getItem('mentorCredentials');
+      const creds = jsonCreds ? JSON.parse(jsonCreds) : null;
+      if (creds && creds.login === login && creds.password === password) {
+        // Успешный вход
+        navigation.navigate('Welcome');
       } else {
         Alert.alert('Ошибка', 'Неверный логин или пароль.');
       }
@@ -33,41 +41,53 @@ export default function Login({ navigation }) {
       <TextInput
         style={styles.input}
         placeholder="Логин"
+        autoCapitalize="none"
         value={login}
         onChangeText={setLogin}
-        autoCapitalize="none"
       />
 
       <TextInput
         style={styles.input}
         placeholder="Пароль"
+        secureTextEntry
         value={password}
         onChangeText={setPassword}
-        secureTextEntry
       />
 
-      <Button title="Войти" onPress={handleSubmit} />
+      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+        <Text style={styles.buttonText}>Войти</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
+    flex: 1, justifyContent: 'center',
+    padding: 20, backgroundColor: '#F7F8FA'
   },
   title: {
-    fontSize: 24,
-    marginBottom: 20,
+    fontSize: 24, fontWeight: '600',
+    marginBottom: 20, textAlign: 'center'
   },
   input: {
     width: '100%',
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    padding: 12,
     marginBottom: 15,
-    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#DDD'
   },
+  button: {
+    backgroundColor: '#6366F1',
+    borderRadius: 8,
+    paddingVertical: 14,
+    alignItems: 'center'
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '500'
+  }
 });

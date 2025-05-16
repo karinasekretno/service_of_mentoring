@@ -55,7 +55,7 @@ useEffect(() => {
       <View style={styles.cardsContainer}>
         <TouchableOpacity
           style={[styles.card, { backgroundColor: '#8C6FF7' }]}
-          onPress={() => navigation.navigate('Welcome')}
+          onPress={() => navigation.navigate('loginstudent')}
         >
           <Text style={styles.cardTitle}>Ученик</Text>
           <Text style={styles.cardSub}>Войти как ученик</Text>
@@ -71,8 +71,15 @@ useEffect(() => {
           style={[styles.cardFull, { backgroundColor: '#6EE7B7' }]}
           onPress={() => navigation.navigate('creatementor')}
         >
-          <Text style={styles.cardTitleDark}>Регистрация</Text>
+          <Text style={styles.cardTitleDark}>Регистрация ментор</Text>
           <Text style={styles.cardSubDark}>Создать аккаунт ментора</Text>
+        </TouchableOpacity>
+		<TouchableOpacity
+          style={[styles.cardFull, { backgroundColor: '#6EE7B7' }]}
+          onPress={() => navigation.navigate('createsudent')}
+        >
+          <Text style={styles.cardTitleDark}>Регистрация ученика</Text>
+          <Text style={styles.cardSubDark}>Создать аккаунт ученика</Text>
         </TouchableOpacity>
       </View>
 
@@ -161,7 +168,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderTopWidth: 1,
     borderColor: '#eee',
-	marginTop: 460
+	marginTop: 370
   },
   navItem: { flex: 1, alignItems: 'center' },
   navSpacer: { width: 60 }

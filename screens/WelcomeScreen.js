@@ -78,11 +78,11 @@ export default function WelcomeScreen({ navigation }) {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.card, styles.cardBook]}
-          onPress={() => navigation.navigate('Booking')}
+          style={[styles.card, styles.cardtime]}
+          onPress={() => navigation.navigate('windows', { mentor: mentorName })}
         >
-          <Ionicons name="book-outline" size={28} color="#fff" />
-          <Text style={styles.cardTitle}>Запись</Text>
+          <Ionicons name="time" size={28} color="#fff" />
+          <Text style={styles.cardTitle}>Мои окошки</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -171,6 +171,7 @@ const styles = StyleSheet.create({
   cardBookings: { backgroundColor: '#F59E0B' },
   cardList: { backgroundColor: '#6366F1' },
   cardBook: { backgroundColor: '#3B82F6' },
+  cardtime: { backgroundColor: '#d27960' },
   cardAbout: {},
   cardExtras: {},
 
